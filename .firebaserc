@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "cdmcloud-c34d7": {
+      "hosting": {
+        "cdmcloud-post": [
+          "cdmcloud-c34d7"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "cdmcloud-c34d7"
+  }
+}
