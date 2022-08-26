@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { collection, collectionData, doc, Firestore, setDoc } from '@angular/fire/firestore';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -24,15 +24,15 @@ export class AppComponent {
   onSubmit(){
 
     if(this.qnaform.value.answer == ""){
-      this.snackBar.openFromComponent(ErrorBarComponent, {
-        duration: 3000,
-      });
+      this.snackBar.openFromComponent(ErrorBarComponent, {});
       return ""
     }
     else{
+      this.snackBar.openFromComponent(LoadBarComponent, {});
       return setDoc(doc(this.col), {
         answer: this.qnaform.value.answer
       }).then(()=>{
+        this.snackBar.dismiss()
         this.snackBar.openFromComponent(SnackBarComponent, {
           duration: 3000,
         });
@@ -66,3 +66,15 @@ export class SnackBarComponent {}
   `],
 })
 export class ErrorBarComponent {}
+
+
+@Component({
+  selector: 'load-bar',
+  templateUrl: 'loading-bar.html',
+  styles: [`
+    .load-class
+      color: #ffcccb
+  
+  `],
+})
+export class LoadBarComponent {}
